@@ -1,0 +1,52 @@
+{
+  "name": "fittoday",
+  "version": "1.0.0",
+  "description": "An easy way to manage your meals and calories",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrebot/fitToday.git"
+  },
+  "keywords": [
+    "fit",
+    "today",
+    "angular",
+    "node",
+    "material"
+  ],
+  "author": "André Almeida <andrebot_almeida@hotmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andrebot/fitToday/issues"
+  },
+  "homepage": "https://github.com/andrebot/fitToday#readme",
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-animate": "^1.5.8",
+    "angular-aria": "^1.5.8",
+    "angular-material": "^1.1.1",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongoose": "^4.6.0",
+    "winston": "^2.2.0"
+  },
+  "devDependencies": {
+    "angular-mocks": "^1.5.8",
+    "chai": "^3.5.0",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-flatten": "^0.3.1",
+    "gulp-ng-annotate": "^2.0.0",
+    "gulp-nodemon": "^2.1.0",
+    "karma": "^1.2.0",
+    "karma-mocha": "^1.1.1",
+    "mocha": "^3.0.2",
+    "require-dir": "^0.3.0",
+    "run-sequence": "^1.2.2",
+    "uglify": "^0.1.5"
+  }
+}
