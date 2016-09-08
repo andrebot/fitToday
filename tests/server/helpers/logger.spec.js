@@ -17,4 +17,18 @@ describe('Auth', function () {
 
     verified.should.be.true;
   });
+
+  it('should verify an empty token as invalid', function () {
+    let token = '';
+    let verified = Auth.isValidToken(token);
+
+    verified.should.be.false;
+  });
+
+  it('should verify an undefined token as invalid', function () {
+    let token;
+    let verified = Auth.isValidToken(token);
+
+    verified.should.be.false;
+  });
 });
