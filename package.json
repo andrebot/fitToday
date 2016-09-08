@@ -4,7 +4,7 @@
   "description": "An easy way to manage your meals and calories",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "gulp test:backend",
     "start": "gulp nodemon:start"
   },
   "repository": {
@@ -31,6 +31,7 @@
     "angular-material": "^1.1.1",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
+    "jsonwebtoken": "^7.1.9",
     "mongoose": "^4.6.0",
     "winston": "^2.2.0"
   },
@@ -41,6 +42,7 @@
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
     "gulp-flatten": "^0.3.1",
+    "gulp-mocha": "^3.0.1",
     "gulp-ng-annotate": "^2.0.0",
     "gulp-nodemon": "^2.1.0",
     "karma": "^1.2.0",
