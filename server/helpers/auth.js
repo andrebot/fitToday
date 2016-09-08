@@ -7,6 +7,7 @@ class Auth {
   constructor() {}
 
   createToken(payload) {
+    return jwt.sign(payload, config.SECRET, {issuer: config.ISSUER});
   }
 }
 

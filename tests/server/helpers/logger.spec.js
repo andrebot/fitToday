@@ -1,17 +1,12 @@
 'use strict';
 
 const should = require('chai').should();
+const jwt = require('jsonwebtoken');
 const Auth = require('../../../server/helpers/auth');
 
 describe('Auth', function () {
-  let auth;
-
-  before(function () {
-    auth = new Auth();
-  });
-
   it('should create a token with right info', function () {
-    let token = auth.createToken({});
+    let token = Auth.createToken({email: 'test@gmail.com', name: 'john doe'});
 
     should.exist(token);
   });
