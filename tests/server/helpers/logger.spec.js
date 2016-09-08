@@ -35,7 +35,7 @@ describe('Auth', function () {
 
   it('should verify a token 1440 secs old as invalid', function () {
     let payload = {email: 'test@gmail.com', name: 'john doe', iat: Math.floor(Date.now() / 1000) - 1441};
-    let token = jwt.sign(payload, config.SECRET, {issuer: config.ISSUER});
+    let token = jwt.sign(payload, config.SECRET, {issuer: config.ISSUER, expiresIn: config.TOKEN_EXPIRATION});
     let verified = Auth.isValidToken(token);
 
     verified.should.be.false;
