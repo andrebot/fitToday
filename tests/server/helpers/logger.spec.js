@@ -10,4 +10,11 @@ describe('Auth', function () {
 
     should.exist(token);
   });
+
+  it('should verify the token as valid', function () {
+    let token = Auth.createToken({email: 'test@gmail.com', name: 'john doe'});
+    let verified = Auth.isValidToken(token);
+
+    verified.should.be.true;
+  });
 });
