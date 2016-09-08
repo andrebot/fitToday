@@ -23,6 +23,10 @@ class Auth {
       return false
     }
   }
+
+  verifyRequestAuthentication(request, response, next) {
+    
+  }
 }
 
 module.exports = new Auth();
