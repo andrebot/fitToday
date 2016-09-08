@@ -14,6 +14,9 @@ const app = new express();
 
 app.set('port', config.PORT);
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 // ================
 // = Start Server =
 // ================
