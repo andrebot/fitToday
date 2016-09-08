@@ -6,6 +6,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const config = require('./config/config');
+const logger = require('./helpers/logger');
 
 // ==========================
 // = Configuring the server =
@@ -23,5 +24,5 @@ app.use(bodyParser.json());
 const server = app.listen(app.get('port'), function () {
   const address = server.address();
 
-  console.log(`Server: Listening at port: ${address.port}`);
+  logger.info(`Server: Listening at port: ${address.port}`);
 });
