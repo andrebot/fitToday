@@ -69,7 +69,7 @@ User.methods.comparePassword = function (password) {
         reject(error);
       }
 
-      Logger.info(`User Model: Passwords matched for ${this.name}.`);
+      Logger.info(`User Model: Passwords tested for ${this.name}.`);
       resolve(isMatch);
     })
   });

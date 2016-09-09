@@ -3,6 +3,7 @@
 const mongoose = require('mongoose');
 const should = require('chai').should();
 const UserDAO = require('../../../server/persistence/userDAO');
+const User = require('../../../server/models/user');
 const config = require('../../../server/config/config');
 
 describe('UserDAO', function () {
@@ -100,7 +101,9 @@ describe('UserDAO', function () {
   });
 
   it('should fetch a user with an email equals \'test@gmail.com\'', function (done) {
-    UserDAO.save(this.payload).then((newUser) => {
+    let newUser = new User(this.payload);
+
+    newUser.save().then((newUser) => {
       UserDAO.findByEmail(this.payload.email).then((user) => {
         should.exist(user);
         user.should.not.be.an('array');
@@ -116,6 +119,68 @@ describe('UserDAO', function () {
       should.not.exist(user);
 
       done();
+    }).catch(done);
+  });
+
+  it('should find an user by id', function (done) {
+    let newUser = new User(this.payload);
+
+    newUser.save().then((user) => {
+      UserDAO.findById(user._id).then((userFindId) => {
+        should.exist(userFindId);
+        userFindId._id.equals(newUser._id).should.be.true;
+
+        done();
+      }).catch(done);
+    }).catch(done);
+  });
+
+  it('should not find an user by an id which does not exists', function (done) {
+    UserDAO.findById('123456789012345678901234').then((user) => {
+      should.not.exist(user);
+
+      done();
+    }).catch(done);
+  });
+
+  it('should list all users', function (done) {
+    let newUser = new User(this.payload);
+
+    newUser.save().then((user) => {
+      newUser = new User(this.payload);
+
+      return newUser.save();
+    }).then(() => {
+      UserDAO.listUsers().then(function (userList) {
+        userList.should.be.an('array');
+        userList.length.should.be.above(0);
+
+        done();
+      }).catch(done);
+    }).catch(done);
+  });
+
+  it('should return an empty list in case we have no users', function (done) {
+    UserDAO.listUsers().then(function (userList) {
+      userList.should.be.an('array');
+      userList.length.should.be.equals(0);
+
+      done();
+    }).catch(done);
+  });
+
+  it('should update a user if I give the right ID', function (done) {
+    let newUser = new User(this.payload);
+
+    newUser.save().then((user) => {
+      this.payload.name = 'Andre123';
+
+      UserDAO.update(this.payload, user._id).then((updatedUser) => {
+        should.exist(updatedUser);
+        updatedUser.name.should.be.equals(this.payload.name);
+
+        done();
+      }).catch(done);
     }).catch(done);
   });
 

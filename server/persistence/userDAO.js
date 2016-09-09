@@ -38,6 +38,29 @@ class UserDAO {
   }
 
   /**
+   * Find a user by ID and update it.
+   *
+   * @public
+   * @param payload {Object} should contain {name: required, email: required, password: required, role: optional}
+   * @param id {string} user's ID
+   * @returns a promise to be comsumed
+   */
+  update(payload, id) {
+    return new Promise(function(resolve, reject) {
+      User.findByIdAndUpdate(id, payload).then(function (updatedUser) {
+        Logger.info(`UserDAO: User #${updatedUser._id} was updated correctly.`);
+
+        resolve(updatedUser);
+      }).catch(function (error) {
+        Logger.error('UserDAO: Error while trying to update an user.');
+        Logger.error(error);
+
+        reject(error);
+      });
+    });
+  }
+
+  /**
    * Find a user using an email.
    *
    * @public
@@ -58,6 +81,34 @@ class UserDAO {
         }
       }).catch(function (error) {
         Logger.error(`UserDAO: Error while trying to fetch user with email ${email}.`);
+        Logger.error(error);
+
+        reject(error);
+      });
+    });
+  }
+
+  /**
+   * Find a user using an id.
+   *
+   * @public
+   * @param userId {String} the ID which will be used to be searched
+   * @returns a promise to be comsumed
+   */
+  findById(userId) {
+    return new Promise(function (resolve, reject) {
+      User.findById(userId).then(function (user) {
+        if (user) {
+          Logger.info('UserDAO: User found.');
+
+          resolve(user);
+        } else {
+          Logger.info(`UserDAO: No user was found with this ID: ${userId}.`);
+
+          resolve();
+        }
+      }).catch(function (error) {
+        Logger.error(`UserDAO: Error while trying to fetch user with ID ${userId}.`);
         Logger.error(error);
 
         reject(error);

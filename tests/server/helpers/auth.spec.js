@@ -65,4 +65,34 @@ describe('Auth', function () {
     this.response.sendStatus.calledOnce.should.be.true;
     this.response.sendStatus.calledWith(401).should.be.true;
   });
+
+  it('should verify the token as valid and accepts it as an admin', function () {
+    this.request.cookies[config.COOKIE_NAME] = Auth.createToken({email: 'test@gmail.com', name: 'john doe', role: 'admin'});
+
+    Auth.verifyAdmin(this.request, this.response, this.next);
+
+    should.exist(this.request.token);
+    this.next.calledOnce.should.be.true;
+    this.response.sendStatus.called.should.be.false;
+  });
+
+  it('should verify the token as valid and not authorize an regular user', function () {
+    this.request.cookies[config.COOKIE_NAME] = Auth.createToken({email: 'test@gmail.com', name: 'john doe', role: 'user'});
+
+    Auth.verifyAdmin(this.request, this.response, this.next);
+
+    should.exist(this.request.token);
+    this.next.calledOnce.should.be.false;
+    this.response.sendStatus.called.should.be.true;
+  });
+
+  it('should verify an empty token as invalid and return 407 for under verifying for admin', function () {
+    this.request.cookies[config.COOKIE_NAME] = '';
+
+    Auth.verifyAdmin(this.request, this.response, this.next);
+
+    should.not.exist(this.request.token);
+    this.response.sendStatus.calledOnce.should.be.true;
+    this.response.sendStatus.calledWith(407).should.be.true;
+  });
 });
