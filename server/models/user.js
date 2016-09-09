@@ -8,10 +8,10 @@ const Logger = require('../helpers/logger');
 const Schema = mongoose.Schema;
 
 const User = new Schema({
-  name:     {type: String, require: true, match: Validator.name},
-  email:    {type: String, require: true, match: Validator.email},
-  role:     {type: String, require: true, default: 'user'},
-  password: {type: String, require: true}
+  name:     {type: String, required: true, match: Validator.name},
+  email:    {type: String, required: true, match: Validator.email},
+  role:     {type: String, required: true, default: 'user'},
+  password: {type: String, required: true}
 });
 
 /**
