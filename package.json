@@ -30,6 +30,7 @@
     "angular-aria": "^1.5.8",
     "angular-material": "^1.1.1",
     "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
     "jsonwebtoken": "^7.1.9",
     "mongoose": "^4.6.0",
