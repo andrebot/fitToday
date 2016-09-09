@@ -3,5 +3,6 @@ module.exports = {
   LOG_LEVEL: 'silent',
   SECRET: 'soloShotFirst',
   ISSUER: 'fitToday',
-  TOKEN_EXPIRATION: 1440
+  TOKEN_EXPIRATION: 1440,
+  COOKIE_NAME: 'fittoday'
 };
