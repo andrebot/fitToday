@@ -11,7 +11,6 @@ const logger = require('./helpers/logger');
 const userRoute = require('./routes/user/userRoute');
 const mealRoute = require('./routes/meal/mealRoute');
 
-
 // ==========================
 // = Configuring the server =
 // ==========================
@@ -37,3 +36,6 @@ const server = app.listen(app.get('port'), function () {
 
   logger.info(`Server: Listening at port: ${address.port}`);
 });
+
+module.exports = server;
+
