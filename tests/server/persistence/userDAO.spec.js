@@ -151,7 +151,7 @@ describe('UserDAO', function () {
 
       return newUser.save();
     }).then(() => {
-      UserDAO.listUsers().then(function (userList) {
+      UserDAO.listDocuments().then(function (userList) {
         userList.should.be.an('array');
         userList.length.should.be.above(0);
 
@@ -161,7 +161,7 @@ describe('UserDAO', function () {
   });
 
   it('should return an empty list in case we have no users', function (done) {
-    UserDAO.listUsers().then(function (userList) {
+    UserDAO.listDocuments().then(function (userList) {
       userList.should.be.an('array');
       userList.length.should.be.equals(0);
 

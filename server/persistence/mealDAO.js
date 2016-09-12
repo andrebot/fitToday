@@ -1,18 +1,18 @@
 'user strict';
 
-const User = require('../models/user');
+const Meal = require('../models/meal');
 const DataAccessObject = require('./DataAccessObject');
 const Logger = require('../helpers/logger');
 
 /**
  * User Data Access Object. Here we manage all peristence layer actions and errors
  */
-class UserDAO extends DataAccessObject{
+class MealDAO extends DataAccessObject{
   /**
    * @constructor
    */
   constructor() {
-    super('UserDAO', User);
+    super('MealDAO', Meal);
 
     Logger.info(`${this.logPrefix}: class instanciated.`);
   }
@@ -21,12 +21,12 @@ class UserDAO extends DataAccessObject{
    * Find a user using an email.
    *
    * @public
-   * @param email {String} the email which will be used to be searched
+   * @param userId {String} the id which will be used in the searched
    * @returns a promise to be comsumed
    */
-  findByEmail(email) {
-    return this.findByAttributes({email: email});
+  listByUserId(userId) {
+    return this.listDocumentsByAttributes({user: userId});
   }
 }
 
-module.exports = new UserDAO();
+module.exports = new MealDAO();
