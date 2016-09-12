@@ -169,6 +169,18 @@ describe('UserDAO', function () {
     }).catch(done);
   });
 
+  it('should delete an user', function (done) {
+    let newUser = new User(this.payload);
+
+    newUser.save().then((savedUser) => {
+      return UserDAO.deleteDocument(savedUser._id);
+    }).then((deletedUser) => {
+      should.exist(deletedUser);
+
+      done();
+    }).catch(done);
+  });
+
   xit('should update a user if I give the right ID', function (done) {
     let newUser = new User(this.payload);
 

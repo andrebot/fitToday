@@ -158,6 +158,29 @@ class DataAccessObject {
       }).catch(this._logErrorFromDB(reject, 'There was an error while trying to list documents.'))
     });
   }
+
+  /**
+   * Delete a document using its ID.
+   *
+   * @public
+   * @param documentId {Object} document's ID
+   * @returns a promise to be comsumed
+   */
+  deleteDocument(documentId) {
+    return new Promise((resolve, reject) => {
+      this.model.findOneAndRemove(documentId).then((deleted) => {
+        if (deleted) {
+          Logger.info(`${this.logPrefix}: Document #${deleted._id} was deleted`);
+
+          resolve(deleted);
+        } else {
+          Logger.info(`${this.logPrefix}: No document was found for ${documentId}`);
+
+          resolve();
+        }
+      }).catch(this._logErrorFromDB(reject, 'There was an error while deleting a document.'));
+    });
+  }
 }
 
 module.exports = DataAccessObject;

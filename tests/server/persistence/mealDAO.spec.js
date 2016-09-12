@@ -183,6 +183,18 @@ describe('MealDAO', function () {
     }).catch(done);
   });
 
+  it('should delete a meal', function (done) {
+    let newMeal = new Meal(this.mealPayload);
+
+    newMeal.save().then((savedMeal) => {
+      return MealDAO.deleteDocument(savedMeal._id);
+    }).then((deletedMeal) => {
+      should.exist(deletedMeal);
+
+      done();
+    }).catch(done);
+  });
+
   xit('should update a Meal if I give the right ID', function (done) {
     let newMeal = new Meal(this.mealPayload);
 
