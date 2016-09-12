@@ -41,11 +41,11 @@ class UserDAO {
    * Find a user by ID and update it.
    *
    * @public
-   * @param payload {Object} should contain {name: required, email: required, password: required, role: optional}
    * @param id {string} user's ID
+   * @param payload {Object} should contain {name: required, email: required, password: required, role: optional}
    * @returns a promise to be comsumed
    */
-  update(payload, id) {
+  update(id, payload) {
     return new Promise(function(resolve, reject) {
       User.findByIdAndUpdate(id, payload).then(function (updatedUser) {
         Logger.info(`UserDAO: User #${updatedUser._id} was updated correctly.`);
