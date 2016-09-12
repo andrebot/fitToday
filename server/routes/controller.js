@@ -1,7 +1,7 @@
 'use strict';
 
-const Logger = require('../../helpers/logger');
-const Validators = require('../../helpers/validators');
+const Logger = require('../helpers/logger');
+const Validators = require('../helpers/validator');
 
 class Controller {
   constructor(logPrefix, modelDAO) {
@@ -54,7 +54,7 @@ class Controller {
    * @return {function} route handler for listing all documents
    */
   listAll() {
-    return (request, response) {
+    return (request, response) => {
       this.modelDAO.listDocuments().then((documents) => {
         Logger.info(`${this.logPrefix}: All documents fetched.`);
 
@@ -71,7 +71,7 @@ class Controller {
    * @return {function} route handler for fetching a document
    */
   get() {
-    return (request, response) {
+    return (request, response) => {
       this.modelDAO.findById(request.params.id).then((document) => {
         Logger.info(`${this.logPrefix}: Document was fetched.`);
 
@@ -88,7 +88,7 @@ class Controller {
    * @return {function} route handler for fetching a document
    */
   update() {
-    return (request, response) {
+    return (request, response) => {
       this.modelDAO.update(request.params.id, request.body).then((document) => {
         Logger.info(`${this.logPrefix}: Document was updated.`);
 
@@ -105,7 +105,7 @@ class Controller {
    * @return {function} route handler for fetching a document
    */
   deleteDocument() {
-    return (request, response) {
+    return (request, response) => {
       this.modelDAO.deleteDocument(request.params.id).then((deletedDocument) => {
         if (deletedDocument) {
           Logger.info(`${this.logPrefix}: Document #${deletedDocument._id} deleted successfully.`);

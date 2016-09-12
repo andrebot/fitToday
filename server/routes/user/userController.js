@@ -3,7 +3,7 @@
 const Auth = require('../../helpers/auth');
 const Controller = require('../controller');
 const config = require('../../config');
-const UserDAO = require('../persistence/userDAO');
+const UserDAO = require('../../persistence/userDAO');
 
 /**
  * Controller responsible for authenticating the user
@@ -86,7 +86,7 @@ class UserController extends Controller {
    * @return {function} route handler for login
    */
   loginUser() {
-    return (request, response) {
+    return (request, response) => {
       let credentials = request.body;
 
       if (credentials.email && credentials.password) {
@@ -118,7 +118,7 @@ class UserController extends Controller {
    * @return {function} route handler for login
    */
   logoutUser() {
-    return (request, response) {
+    return (request, response) => {
       response.clearCookie(config.COOKIE_NAME);
 
       response.sendStatus(200).json({data: {msg: 'loged out'}});

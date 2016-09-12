@@ -3,7 +3,7 @@
 const Controller = require('../controller');
 const Logger = require('../../helpers/logger');
 const config = require('../../config');
-const MealDAO = require('../persistence/mealDAO');
+const MealDAO = require('../../persistence/mealDAO');
 
 /**
  * Controller responsible for authenticating the user
