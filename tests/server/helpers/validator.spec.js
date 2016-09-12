@@ -5,9 +5,10 @@ const validator = require('../../../server/helpers/validator');
 
 describe('Validator', function () {
 
-  it('should have two regular expressions named email and name', function () {
+  it('should have three regular expressions named email and name', function () {
     should.exist(validator.email);
     should.exist(validator.name);
+    should.exist(validator.description);
   });
 
   it('should validate a correct email', function () {
@@ -28,5 +29,30 @@ describe('Validator', function () {
     validator.isEmailValid('').should.be.false;
     validator.isEmailValid().should.be.false;
     validator.isEmailValid(null).should.be.false;
-  })
+  });
+
+  it('should validate a correct name', function () {
+    validator.isNameValid('André Botelho Almeida').should.be.true;
+    validator.isNameValid('Andre Botelho Almeida').should.be.true;
+    validator.isNameValid('Gabriel Gonçalves').should.be.true;
+    validator.isNameValid('White-Heisenbergh').should.be.true;
+  });
+
+  it('should say an incorrect name is not correct', function () {
+    validator.isNameValid('Kei$ha Addmas').should.be.false;
+    validator.isNameValid('@ndre-Botelho').should.be.false;
+    validator.isNameValid('C***, e mais').should.be.false;
+    validator.isNameValid('Pronto. Sem mais nomes!').should.be.false;
+  });
+
+  it('should validate a correct description', function () {
+    validator.isDescriptionValid('Deve aceitar tudo! Sem por nem tirar! Não tem descriminação.').should.be.true;
+    validator.isDescriptionValid('Mandar-lhe-ei uma coisa. Esqueça, já se perdeu.').should.be.true;
+    validator.isDescriptionValid('Eita!\nOlhe o que aconteceu!').should.be.true;
+    validator.isDescriptionValid('Olhe (não diga)').should.be.true;
+  });
+
+  it('should say an incorrect description is not correct', function () {
+    validator.isDescriptionValid('() => {process.exit()}').should.be.false;
+  });
 });
