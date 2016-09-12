@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const should = require('chai').should();
 const UserDAO = require('../../../server/persistence/userDAO');
 const User = require('../../../server/models/user');
-const config = require('../../../server/config/config');
+const config = require('../../../server/config');
 
 describe('UserDAO', function () {
   mongoose.Promise = Promise;

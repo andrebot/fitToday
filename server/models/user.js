@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const config = require('../config/config');
+const config = require('../config');
 const Validator = require('../helpers/validator');
 const Logger = require('../helpers/logger');
 const Schema = mongoose.Schema;

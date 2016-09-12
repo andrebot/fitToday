@@ -5,7 +5,7 @@ const should = require('chai').should();
 const MealDAO = require('../../../server/persistence/MealDAO');
 const Meal = require('../../../server/models/meal');
 const User = require('../../../server/models/user');
-const config = require('../../../server/config/config');
+const config = require('../../../server/config');
 
 describe('MealDAO', function () {
   mongoose.Promise = Promise;

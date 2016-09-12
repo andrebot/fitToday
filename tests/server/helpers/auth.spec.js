@@ -4,7 +4,7 @@ const should = require('chai').should();
 const jwt = require('jsonwebtoken');
 const sinon = require('sinon');
 const Auth = require('../../../server/helpers/auth');
-const config = require('../../../server/config/config');
+const config = require('../../../server/config');
 
 describe('Auth', function () {
 

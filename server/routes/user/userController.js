@@ -2,7 +2,7 @@
 
 const Auth = require('../../helpers/auth');
 const Controller = require('../controller');
-const config = require('../../config/config');
+const config = require('../../config');
 const UserDAO = require('../persistence/userDAO');
 
 /**
@@ -30,7 +30,7 @@ class UserController extends Controller {
       email: user.email,
       name: user.name,
       role: user.role,
-      id: user._id
+      user_id: user._id
     };
 
     const token = Auth.createToken(payload);
@@ -48,7 +48,7 @@ class UserController extends Controller {
    * 
    * @return {function} route handler for login
    */
-  createUser() {
+  create() {
     return (request, response) => {
       let credentials = request.body;
 
@@ -105,9 +105,7 @@ class UserController extends Controller {
           } else {
             response.sendStatus(400).json({error: `no user with this email: ${credentials.email}`});
           }
-        }).catch((error) => {
-          response.sendStatus(500).json({error: error.msg});
-        });
+        }).catch(this._sendErrorMsg(response, 'could not authenticate the user.'));
       }
     }
   }
@@ -124,48 +122,6 @@ class UserController extends Controller {
       response.clearCookie(config.COOKIE_NAME);
 
       response.sendStatus(200).json({data: {msg: 'loged out'}});
-    }
-  }
-
-  /**
-   * Handler for get user route. It will fetch an user by id which was provided
-   * in the url. e.g: /user/123
-   *
-   * @public
-   * 
-   * @return {function} route handler for login
-   */
-  getUser() {
-    return (request, response) {
-      UserDAO.findById(request.params.id).then((user) => {
-        if (user) {
-          response.json(user);
-        } else {
-          response.sendStatus(400).json({error: `no user with this ID: ${request.params.id}`});
-        }
-      }).catch((error) => {
-        response.sendStatus(500).json({error: error.msg});
-      });
-    }
-  }
-
-  /**
-   * Handler for get user route. It will fetch an user by id which was provided
-   * in the url. e.g: /user/123
-   *
-   * @public
-   * 
-   * @return {function} route handler for login
-   */
-  updateUser() {
-    return (request, response) {
-      let newInfo = request.body;
-
-      UserDAO.update(newInfo, request.params.id).then(function (updatedUser) {
-        response.json(updatedUser);
-      }).catch((error) => {
-        response.sendStatus(500).json({error: error.msg});
-      });
     }
   }
 }

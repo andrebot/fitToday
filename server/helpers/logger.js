@@ -1,7 +1,7 @@
 'use strict';
 
 const winston = require('winston');
-const config = require('../config/config');
+const config = require('../config');
 
 winston.emitErrs = true;
 
