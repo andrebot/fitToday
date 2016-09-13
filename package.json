@@ -6,7 +6,7 @@
   "scripts": {
     "test": "gulp test:backend",
     "start": "gulp nodemon:start",
-    "build:client": "gulp build:client"
+    "build:client": "gulp deploy:dev"
   },
   "repository": {
     "type": "git",

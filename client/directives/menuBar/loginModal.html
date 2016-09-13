@@ -1,0 +1,33 @@
+<md-dialog aria-label="Login Modal">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Log in</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="vm.hide()">
+          <md-icon md-svg-src="/imgs/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <form name="login">
+          <md-input-container class="md-block">
+            <label>Email:</label>
+            <input ng-model="vm.login.email">
+          </md-input-container>
+
+          <md-input-container class="md-block">
+            <label>senha:</label>
+            <input ng-model="vm.login.password" type="password">
+          </md-input-container>
+
+          <div layout="column">
+            <md-button flex class="md-raised md-primary" ng-click="vm.logIn()">Log in</md-button>
+          </div>
+        </form>
+      </div>
+    </md-dialog-content>
+  </form>
+</md-dialog>

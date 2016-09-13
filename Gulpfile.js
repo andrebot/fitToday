@@ -14,5 +14,10 @@ gulp.task('build:client', function (cb) {
               ['copy:css', 
                'copy:js',
                'copy:html',
+               'copy:imgs',
                'build:clientJS'], cb);
+});
+
+gulp.task('deploy:dev', function (cb) {
+  runSequence('build:client', 'nodemon:start', 'watch', cb);
 });

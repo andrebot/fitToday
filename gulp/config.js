@@ -20,5 +20,6 @@ module.exports = {
   clientHTML: 'client/**/*.html',
   clientIndex: 'client/index.html',
   clientInits: 'client/**/*.init.js',
-  clientJS: 'client/**/*.js'
+  clientJS: 'client/**/*.js',
+  clientImgs: 'client/imgs/*'
 };

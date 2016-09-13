@@ -1,7 +1,9 @@
 (function () {
   'use strict';
 
-  var dependencies = ['ngMaterial', 'ngRoute'];
+  var dependencies = ['ngMaterial', 
+                      'ngRoute',
+                      'fitToday.directives'];
 
   angular.module('fitToday', dependencies)
          .config(routeConfig);
