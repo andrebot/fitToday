@@ -1,8 +1,17 @@
 (function () {
   'use strict';
 
-  var dependencies = ['ngMaterial'];
+  var dependencies = ['ngMaterial', 'ngRoute'];
 
-  angular.module('fitToday', dependencies);
+  angular.module('fitToday', dependencies)
+         .config(routeConfig);
+
+  function routeConfig ($routeProvider) {
+    $routeProvider
+      .when('/', {
+        controller: 'homeController',
+        templateUrl: 'views/home.html'
+      });
+  }
 
 })();
