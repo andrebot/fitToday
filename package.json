@@ -6,7 +6,7 @@
   "scripts": {
     "test": "gulp test:backend",
     "start": "gulp nodemon:start",
-    "build:client": "gulp deploy:dev"
+    "deploy:client": "gulp deploy:dev"
   },
   "repository": {
     "type": "git",
@@ -30,6 +30,7 @@
     "angular-animate": "^1.5.8",
     "angular-aria": "^1.5.8",
     "angular-material": "^1.1.1",
+    "angular-resource": "^1.5.8",
     "angular-route": "^1.5.8",
     "bcrypt": "^0.8.7",
     "body-parser": "^1.15.2",
