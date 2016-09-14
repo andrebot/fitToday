@@ -4,6 +4,7 @@ const Auth = require('../../helpers/auth');
 const Controller = require('../controller');
 const config = require('../../config');
 const UserDAO = require('../../persistence/userDAO');
+const Logger = require('../../helpers/logger');
 
 /**
  * Controller responsible for authenticating the user
@@ -75,18 +76,18 @@ class UserController extends Controller {
           password: credentials.password
         }).then((user) => {
 
-          this.logger.info(`${this.logPrefix}: User created and logged in.`);
+          Logger.info(`${this.logPrefix}: User created and logged in.`);
           response.json(this._createToken(user, response));
 
         }).catch((error) => {
-          this.logger.error(`${this.logPrefix}: could not authenticate the user.`);
+          Logger.error(`${this.logPrefix}: could not authenticate the user.`);
 
           response.sendStatus(500).json({error: error.message});
         });
       } else {
         const msg = 'missing information.';
 
-        this.logger.error(`${this.logPrefix}: ${msg}`);
+        Logger.error(`${this.logPrefix}: ${msg}`);
 
         response.sendStatus(400).json({error: msg});
       }
@@ -110,10 +111,10 @@ class UserController extends Controller {
           if (user) {
             user.comparePassword(credentials.password).then((isMatch) => {
               if (isMatch) {
-                this.logger.info(`${this.logPrefix}: User logged in.`);
+                Logger.info(`${this.logPrefix}: User logged in.`);
                 response.json(this._createToken(user, response));
               } else {
-                this.logger.info(`${this.logPrefix}: wrong password.`);
+                Logger.info(`${this.logPrefix}: wrong password.`);
 
                 response.sendStatus(400).json({error: 'wrong password.'});
               }
