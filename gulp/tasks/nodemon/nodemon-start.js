@@ -6,7 +6,8 @@ const gulp = require('gulp');
 
 gulp.task('nodemon:start', function () {
   nodemon({
-    script: config.serverIndex
+    script: config.serverIndex,
+    ignore: [`public/**/*`]
   })
   .on('restart', function () {
     console.log('Nodemon restarted!');

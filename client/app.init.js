@@ -3,17 +3,20 @@
 
   var dependencies = ['ngMaterial', 
                       'ngRoute',
-                      'fitToday.directives'];
+                      'LocalStorageModule',
+                      'fitToday.directives',
+                      'fitToday.services'];
 
   angular.module('fitToday', dependencies)
          .config(routeConfig);
 
-  function routeConfig ($routeProvider) {
-    $routeProvider
-      .when('/', {
+  function routeConfig ($routeProvider, localStorageServiceProvider) {
+    $routeProvider.when('/', {
         controller: 'homeController',
         templateUrl: 'views/home.html'
       });
+
+    localStorageServiceProvider.setPrefix('fitToday');
   }
 
 })();

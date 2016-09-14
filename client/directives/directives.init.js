@@ -1,6 +1,10 @@
 (function () {
   'use strict';
 
-  angular.module('fitToday.directives', []);
+  var dependencies = ['ngMaterial', 
+                      'LocalStorageModule',
+                      'fitToday.services'];
+
+  angular.module('fitToday.directives', dependencies);
 
 })();

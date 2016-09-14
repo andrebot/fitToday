@@ -1,8 +1,8 @@
-<md-dialog aria-label="Login Modal" flex="80">
+<md-dialog aria-label="Register Modal" flex="80">
   <form ng-cloak>
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Log in</h2>
+        <h2>Register</h2>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="vm.hide()">
           <md-icon md-svg-src="/imgs/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
@@ -14,17 +14,27 @@
       <div class="md-dialog-content">
         <form name="login">
           <md-input-container class="md-block">
+            <label>Name</label>
+            <input ng-model="vm.user.name">
+          </md-input-container>
+
+          <md-input-container class="md-block">
             <label>Email</label>
-            <input ng-model="vm.login.email">
+            <input ng-model="vm.user.email">
           </md-input-container>
 
           <md-input-container class="md-block">
             <label>Password</label>
-            <input ng-model="vm.login.password" type="password">
+            <input ng-model="vm.user.password" type="password">
+          </md-input-container>
+
+          <md-input-container class="md-block">
+            <label>Confirm Password</label>
+            <input ng-model="vm.user.confirmPassword" type="password">
           </md-input-container>
 
           <div layout="column">
-            <md-button flex class="md-raised md-primary" ng-click="vm.logIn()">Log In</md-button>
+            <md-button flex class="md-raised md-primary" ng-click="vm.register()">Log in</md-button>
           </div>
         </form>
       </div>

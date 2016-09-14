@@ -82,14 +82,30 @@ class UserController extends Controller {
         }).catch((error) => {
           Logger.error(`${this.logPrefix}: could not authenticate the user.`);
 
-          response.sendStatus(500).json({error: error.message});
+          let errorObj = {
+            message: error.message,
+            errors: []
+          };
+
+          for (let key in error.errors) {
+            const err = error.errors[key];
+
+            Logger.error(`${this.logPrefix}: ${err.ValidatorError}`);
+
+            errorObj.errors.push({
+              message: err.message,
+              input: err.path
+            });
+          }
+
+          response.status(500).json(errorObj);
         });
       } else {
         const msg = 'missing information.';
 
         Logger.error(`${this.logPrefix}: ${msg}`);
 
-        response.sendStatus(400).json({error: msg});
+        response.status(400).json({error: msg});
       }
     }
   }
@@ -112,15 +128,16 @@ class UserController extends Controller {
             user.comparePassword(credentials.password).then((isMatch) => {
               if (isMatch) {
                 Logger.info(`${this.logPrefix}: User logged in.`);
+
                 response.json(this._createToken(user, response));
               } else {
                 Logger.info(`${this.logPrefix}: wrong password.`);
 
-                response.sendStatus(400).json({error: 'wrong password.'});
+                response.status(400).json({error: 'wrong password.'});
               }
             })
           } else {
-            response.sendStatus(400).json({error: `no user with this email: ${credentials.email}`});
+            response.status(400).json({error: `no user with this email: ${credentials.email}`});
           }
         }).catch(this._sendErrorMsg(response, 'could not authenticate the user.'));
       }
@@ -138,7 +155,8 @@ class UserController extends Controller {
     return (request, response) => {
       response.clearCookie(config.COOKIE_NAME);
 
-      response.sendStatus(200).json({data: {msg: 'loged out'}});
+      Logger.info(`${this.logPrefix}: user was successfully logged out.`);
+      response.status(200).json({data: {msg: 'loged out'}});
     }
   }
 }

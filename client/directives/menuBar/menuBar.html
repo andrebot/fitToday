@@ -4,11 +4,19 @@
       <span>Fit Today</span>
     </h2>
     <span flex></span>
-    <md-button class="md-raised" ng-click="vm.openLoginModal($event)" aria-label="Log in">
-      Log in
-    </md-button>
-    <md-button ng-click="vm.openRegisterModal($event)" aria-label="Register">
-      Register
-    </md-button>
+    <div ng-hide="vm.isLoggedIn">
+      <md-button class="md-raised" ng-click="vm.openLoginModal($event)" aria-label="Log in">
+        Log in
+      </md-button>
+      <md-button ng-click="vm.openRegisterModal($event)" aria-label="Register">
+        Register
+      </md-button>
+    </div>
+    <div ng-show="vm.isLoggedIn">
+      <span>Hello, {{vm.userName}}!</span>
+      <md-button ng-click="vm.logOut($event)" aria-label="logout">
+        Log out
+      </md-button>
+    </div>
   </div>
 </md-toolbar>
