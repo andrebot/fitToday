@@ -41,7 +41,23 @@ class UserController extends Controller {
   }
 
   /**
-   * Handler for create user route. It will get the user cerdentials from the request body
+   * Validates client's user data. We need to have matching passwords (password and confirm)
+   * so we can create a new user.
+   *
+   * @private
+   * @param credentials {Object} contains user's credentials {email, name, password, confirmPassword}
+   * @return {Boolean} if all data is there.
+   */
+  _validateCredentials({email, name, password, confirmPassword}) {
+    if (email && name && password && confirmPassword && password === confirmPassword) {
+      return true
+    }
+
+    return false;
+  }
+
+  /**
+   * Handler for create user route. It will get the user credentials from the request body
    * and then it will try to create a new user.
    *
    * @public
@@ -52,10 +68,10 @@ class UserController extends Controller {
     return (request, response) => {
       let credentials = request.body;
 
-      if (credentials.email && credentials.name && credentials.password) {
+      if (this._validateCredentials(credentials)) {
         UserDAO.save({
           name: credentials.name,
-          email: cerdentials.email,
+          email: credentials.email,
           password: credentials.password
         }).then((user) => {
 
@@ -78,7 +94,7 @@ class UserController extends Controller {
   }
 
   /**
-   * Handler for log in user route. It will get the user cerdentials from the request body
+   * Handler for log in user route. It will get the user credentials from the request body
    * and then it will try to find and login this user.
    *
    * @public
