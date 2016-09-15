@@ -4,12 +4,13 @@ describe('MenuBar Directive', function () {
 
   beforeEach(module('fitToday.directives'));
 
-  beforeEach(inject(function (_$controller_, _$mdDialog_, _$mdToast_, _UserService_, _localStorageService_) {
+  beforeEach(inject(function (_$controller_, _$mdDialog_, _$mdToast_, _$cookies_, _UserService_, _localStorageService_) {
     this.mdDialog = _$mdDialog_;
     this.mdToast = _$mdToast_;
     this.userService = _UserService_;
     this.localStorageService = _localStorageService_;
     this.$controller = _$controller_;
+    this.cookies = _$cookies_;
 
     sinon.spy(this.mdDialog, 'show');
     sinon.spy(this.mdDialog, 'cancel');
@@ -20,6 +21,7 @@ describe('MenuBar Directive', function () {
     sinon.spy(this.userService, 'logIn');
     sinon.spy(this.userService, 'save');
     sinon.spy(this.localStorageService, 'remove');
+
     this.localStorageSet = sinon.spy(this.localStorageService, 'set');
   }));
 
@@ -28,10 +30,25 @@ describe('MenuBar Directive', function () {
       this.controller = this.$controller('MenuBarController', {$scope: {}});
     });
 
-    it('should have all its variables configured with their default values', function () {
+    it('should have all its variables configured with their default values if user is not logged in', function () {
       this.controller.isLoggedIn.should.be.false;
       this.controller.userName.should.be.empty;
     });
+
+    it('should set the local varialbes if the user is logged in', function () {
+      sinon.stub(this.cookies, 'get', function () {
+        var metadata = btoa(JSON.stringify({method: 'b64'}));
+        var payload = btoa(JSON.stringify({name: 'andre'}));
+        var signature = btoa(JSON.stringify({secret: 'anything'}));
+
+        return metadata + '.' + payload + '.' + signature;
+      });
+
+      this.controller = this.$controller('MenuBarController', {$scope: {}});
+
+      this.controller.isLoggedIn.should.be.true;
+      this.controller.userName.should.not.be.empty;
+    })
 
     it('should open the login modal', function () {
       this.controller.openLoginModal();

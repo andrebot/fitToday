@@ -13,7 +13,9 @@ module.exports = {
     'node_modules/angular-resource/angular-resource.min.js',
     'node_modules/angular-resource/angular-resource.min.js.map',
     'node_modules/angular-local-storage/dist/angular-local-storage.min.js',
-    'node_modules/angular-local-storage/dist/angular-local-storage.min.js.map'
+    'node_modules/angular-local-storage/dist/angular-local-storage.min.js.map',
+    'node_modules/angular-cookies/angular-cookies.min.js',
+    'node_modules/angular-cookies/angular-cookies.min.js.map'
   ],
   clientCSSLib: [
     'node_modules/angular-material/angular-material.min.css'

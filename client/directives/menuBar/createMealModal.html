@@ -1,8 +1,8 @@
-<md-dialog aria-label="Edit Meal" flex="80">
+<md-dialog aria-label="Create Meal" flex="80">
   <form ng-cloak>
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Edit Meal</h2>
+        <h2>Create Meal</h2>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="vm.hide()">
           <md-icon md-svg-src="/imgs/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
@@ -15,26 +15,26 @@
         <form name="login">
           <md-input-container class="md-block">
             <label>Name</label>
-            <input ng-model="vm.meal.name" ng-value="vm.oldMeal.name">
+            <input ng-model="vm.meal.name">
           </md-input-container>
 
           <md-input-container>
             <label>When</label>
-            <md-datepicker ng-model="vm.meal.when" ng-value="vm.oldMeal.when" md-open-on-focus></md-datepicker>
+            <md-datepicker ng-model="vm.meal.when" md-open-on-focus></md-datepicker>
           </md-input-container>
 
           <md-input-container class="md-block">
             <label>Description</label>
-            <input ng-model="vm.meal.description" ng-value="vm.oldMeal.description">
+            <input ng-model="vm.meal.description">
           </md-input-container>
 
           <md-input-container class="md-block">
             <label>Calories</label>
-            <input ng-model="vm.meal.calories" type="number" min="0" ng-value="vm.oldMeal.calories">
+            <input ng-model="vm.meal.calories" type="number" min="0">
           </md-input-container>
 
           <div layout="column">
-            <md-button flex class="md-raised md-primary" ng-click="vm.save()">Save</md-button>
+            <md-button flex class="md-raised md-primary" ng-click="vm.create()">Create</md-button>
           </div>
         </form>
       </div>

@@ -3,6 +3,9 @@
     <h2>
       <span>Fit Today</span>
     </h2>
+    <md-button ng-click="vm.openCreateMealModal()" aria-label="create meal" ng-show="vm.isLoggedIn">
+      + Create Meal
+    </md-button>
     <span flex></span>
     <div ng-hide="vm.isLoggedIn">
       <md-button class="md-raised" ng-click="vm.openLoginModal($event)" aria-label="Log in">

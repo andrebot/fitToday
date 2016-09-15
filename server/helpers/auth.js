@@ -44,6 +44,11 @@ class Auth {
       } catch (error) {
         logger.info('Auth: Token invalid.');
         logger.error(error);
+        console.log(error);
+
+        if (error.name === 'TokenExpiredError') {
+          response.clearCookie(config.COOKIE_NAME);
+        }
 
         response.sendStatus(401);
       }

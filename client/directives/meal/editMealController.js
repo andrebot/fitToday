@@ -10,6 +10,7 @@
       name: '',
       description: '',
       calories: 0,
+      when: 0,
       _id: meal._id
     };
 

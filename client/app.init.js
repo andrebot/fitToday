@@ -12,9 +12,10 @@
 
   function routeConfig ($routeProvider, localStorageServiceProvider) {
     $routeProvider.when('/', {
-        controller: 'homeController',
-        templateUrl: 'views/home.html'
-      });
+      controller: 'homeController',
+      controllerAs: 'vm',
+      templateUrl: 'views/home.html'
+    });
 
     localStorageServiceProvider.setPrefix('fitToday');
   }

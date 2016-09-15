@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular.module('fitToday.services').factory('UserService', UserService);

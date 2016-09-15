@@ -106,7 +106,9 @@ class Controller {
    */
   deleteDocument() {
     return (request, response) => {
-      this.modelDAO.deleteDocument(request.params.id).then((deletedDocument) => {
+      const token = request.token;
+
+      this.modelDAO.deleteDocument(request.params.id, token.user_id, token.role).then((deletedDocument) => {
         if (deletedDocument) {
           Logger.info(`${this.logPrefix}: Document #${deletedDocument._id} deleted successfully.`);
 

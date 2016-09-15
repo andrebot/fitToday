@@ -15,7 +15,7 @@ class UserController extends Controller {
    * @constructor
    */
   constructor() {
-    super('UserController');
+    super('UserController', UserDAO);
   }
 
   /**

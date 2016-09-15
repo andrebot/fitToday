@@ -9,7 +9,7 @@
     return {
       restrict: 'E',
       scope: {
-        mealId: '=mealId'
+        meal: '=meal'
       },
       templateUrl: '/views/meal.html',
       controller: 'mealController',
@@ -17,7 +17,7 @@
     };
   }
 
-  function MealController ($scope, $mdDialog, $mdToast, MealService) {
+  function MealController ($rootScope, $scope, $mdDialog, $mdToast, MealService) {
     var vm = this;
     var defautMeal = {
       name: '',
@@ -25,7 +25,7 @@
       calories: 0
     };
 
-    vm.meal = defautMeal;
+    vm.meal = $scope.meal;
 
     vm.getMealSuccess = function (meal) {
       vm.meal = meal;
@@ -47,10 +47,6 @@
       vm.meal = defautMeal;
     };
 
-    vm.loadMeal = function () {
-      MealService.get({_id: $scope.mealId}, vm.getMealSuccess, vm.responseFail);
-    };
-
     vm.editSuccess = function (meal) {
       if (meal) {
         vm.meal = meal;
@@ -63,13 +59,12 @@
       }
     };
 
-    vm.removeSuccess = function (meal) {
-      $scope.$destroy();
-      angular.element(document.querySelector('#meal-' + $scope.mealId)).remove();
+    vm.removeSuccess = function () {
+      $rootScope.$broadcast('removeMeal', vm.meal);
     };
 
     vm.removeMeal = function () {
-      MealService.delete({_id: $scope.mealId}, vm.removeSuccess, vm.responseFail)
+      vm.meal.$delete(vm.removeSuccess, vm.responseFail)
     };
 
     vm.editMeal = function (evt) {
@@ -88,7 +83,5 @@
       .then(vm.editSuccess)
       .catch(vm.responseFail);
     };
-
-    vm.loadMeal();
   }
 })();

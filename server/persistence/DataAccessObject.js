@@ -27,6 +27,10 @@ class DataAccessObject {
       Logger.error(`${this.logPrefix}: ${msg}`);
       Logger.error(error);
 
+      for (let mongoError in error.errors) {
+        Logger.error(mongoError);
+      }
+
       reject(error);
     }
   }
@@ -110,7 +114,7 @@ class DataAccessObject {
 
           resolve();
         }
-      }).catch(this._logErrorFromDB(reject, 'Error while trying to fetch document with ID ${documentId}.'));
+      }).catch(this._logErrorFromDB(reject, `Error while trying to fetch document with ID ${documentId}.`));
     });
   }
 
@@ -166,9 +170,17 @@ class DataAccessObject {
    * @param documentId {Object} document's ID
    * @returns a promise to be comsumed
    */
-  deleteDocument(documentId) {
+  deleteDocument(documentId, userId, role) {
     return new Promise((resolve, reject) => {
-      this.model.findOneAndRemove(documentId).then((deleted) => {
+      let query = {
+        _id: documentId
+      };
+
+      if (role !== 'admin') {
+        query.user = userId;
+      }
+
+      this.model.findOneAndRemove(query).then((deleted) => {
         if (deleted) {
           Logger.info(`${this.logPrefix}: Document #${deleted._id} was deleted`);
 

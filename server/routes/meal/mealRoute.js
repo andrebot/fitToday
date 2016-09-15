@@ -9,13 +9,12 @@ router.route('/')
   .post(Auth.verifyRequestAuthentication, MealController.create())
   .get(Auth.verifyAdmin, MealController.listAll());
 
-router.route('/:id')
-  .get(Auth.verifyRequestAuthentication, MealController.get())
-  .put(Auth.verifyRequestAuthentication, MealController.update())
-  .delete(Auth.verifyAdmin, MealController.deleteDocument());
-
 router.route('/myList')
   .get(Auth.verifyRequestAuthentication, MealController.getMyMeal());
 
+router.route('/:id')
+  .get(Auth.verifyRequestAuthentication, MealController.get())
+  .put(Auth.verifyRequestAuthentication, MealController.update())
+  .delete(Auth.verifyRequestAuthentication, MealController.deleteDocument());
 
 module.exports = router;

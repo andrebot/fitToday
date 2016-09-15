@@ -14,7 +14,20 @@ class MealController extends Controller {
    * @constructor
    */
   constructor() {
-    super('MealController');
+    super('MealController', MealDAO);
+  }
+
+  create() {
+    return (request, response) => {
+      let meal = request.body;
+      meal.user = request.token.user_id;
+
+      this.modelDAO.save(meal).then((document) => {
+        Logger.info(`${this.logPrefix}: Document created`);
+
+        response.json(document);
+      }).catch(this._sendErrorMsg(response, 'Error while creating a document.'));
+    }
   }
 
   /**
@@ -26,7 +39,7 @@ class MealController extends Controller {
    */
   getMyMeal() {
     return (request, response) => {
-      MealDAO.listByUserId(request.toke.userId).then((meals) => {
+      MealDAO.listByUserId(request.token.user_id).then((meals) => {
         Logger.info(`${this.logPrefix}: Fecthed all the meals.`);
 
         response.json(meals);
