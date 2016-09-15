@@ -1,0 +1,19 @@
+<md-card class="meal-card" id="meal-{{mealId}}">
+  <md-card-title>
+    <span class="md-title">Meal</span>
+    <span class="md-subhead" ng-show="vm.meal.name"> - {{vm.meal.name}}</span>
+  </md-card-title>
+  <md-card-content>
+    <p>
+      {{vm.meal.description}}
+    </p>
+    <md-divider></md-divider>
+    <p align="right">
+      {{vm.meal.calories}} Calories
+    </p>
+  </md-card-content>
+  <md-card-actions layout="row" layout-align="end center">
+    <md-button class="md-warn" ng-click="vm.removeMeal()">remove</md-button>
+    <md-button class="md-primary" ng-click="vm.editMeal()">edit</md-button>
+  </md-card-actions>
+</md-card>
