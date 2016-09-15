@@ -46,10 +46,12 @@ describe('MenuBar Directive', function () {
     });
 
     it('should show a toast and set the user as logged in', function () {
-      this.controller.loggedResponse('test1', 'my test.');
+      this.controller.loggedResponse({msg: 'test1', userName: 'my test.'});
 
       this.mdToast.show.should.have.been.calledOnce;
       this.mdToast.simple.should.have.been.calledOnce;
+      should.exist(this.controller.isLoggedIn);
+      should.exist(this.controller.userName);
       this.controller.isLoggedIn.should.be.true;
       this.controller.userName.should.not.be.empty;
     });
@@ -89,7 +91,7 @@ describe('MenuBar Directive', function () {
     });
 
     it('should clear the localstorage if the user was logged out', function () {
-      this.controller.logOutSuccess('logged out');
+      this.controller.logOutSuccess({data: 'logged out'});
 
       sinon.spy(this.controller, 'loggedOutResponse');
 
