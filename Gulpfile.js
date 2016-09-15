@@ -15,6 +15,7 @@ gulp.task('build:client', function (cb) {
                'copy:js',
                'copy:html',
                'copy:imgs',
+               'build:clientCSS',
                'build:clientJS'], cb);
 });
 
