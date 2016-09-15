@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "gulp test:backend && karma start",
+    "test:back": "gulp test:backend",
     "test:front": "gulp build:clientJS && karma start",
     "start": "gulp nodemon:start",
     "deploy:client": "gulp deploy:dev"
