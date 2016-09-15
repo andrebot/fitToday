@@ -14,7 +14,7 @@ router.route('/:id')
   .put(Auth.verifyRequestAuthentication, MealController.update())
   .delete(Auth.verifyAdmin, MealController.deleteDocument());
 
-router.route('/myMeals')
+router.route('/user')
   .get(Auth.verifyRequestAuthentication, MealController.getMyMeal());
 
 

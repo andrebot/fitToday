@@ -33,7 +33,8 @@ describe('MealDAO', function () {
       user: '',
       name: 'Meal123',
       description: 'Nothing much',
-      calories: 2
+      calories: 2,
+      when: Date.now()
     };
 
     mongoose.connection.db.dropDatabase((error, result) => {
@@ -61,6 +62,18 @@ describe('MealDAO', function () {
     MealDAO.save(this.mealPayload).then((newMeal) => {
       should.exist(newMeal);
       should.exist(newMeal._id);
+
+      done();
+    }).catch(done);
+  });
+
+  it('should add a default date in the when attribute if none is provided', function (done) {
+    delete this.mealPayload.when;
+
+    MealDAO.save(this.mealPayload).then((newMeal) => {
+      should.exist(newMeal);
+      should.exist(newMeal._id);
+      should.exist(newMeal.when);
 
       done();
     }).catch(done);
