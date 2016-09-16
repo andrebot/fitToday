@@ -122,13 +122,15 @@
       }
     };
 
-    vm.verifyUserLoggedIn();
-
-    vm.documentElement.ready(function () {
+    vm.handleDocumentReady = function () {
       //Wait everything to have set their listeners so we can broadcast.
       if (vm.isLoggedIn) {
         $rootScope.$broadcast('loggedIn');
       }
-    });
+    };
+
+    vm.verifyUserLoggedIn();
+
+    vm.documentElement.ready(vm.handleDocumentReady);
   }
 })();

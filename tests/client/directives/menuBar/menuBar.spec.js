@@ -4,13 +4,14 @@ describe('MenuBar Directive', function () {
 
   beforeEach(module('fitToday.directives'));
 
-  beforeEach(inject(function (_$controller_, _$mdDialog_, _$mdToast_, _$cookies_, _UserService_, _localStorageService_) {
+  beforeEach(inject(function (_$controller_, _$rootScope_, _$mdDialog_, _$mdToast_, _$cookies_, _UserService_, _localStorageService_) {
     this.mdDialog = _$mdDialog_;
     this.mdToast = _$mdToast_;
     this.userService = _UserService_;
     this.localStorageService = _localStorageService_;
     this.$controller = _$controller_;
     this.cookies = _$cookies_;
+    this.rootScope = _$rootScope_;
 
     sinon.spy(this.mdDialog, 'show');
     sinon.spy(this.mdDialog, 'cancel');
@@ -21,6 +22,7 @@ describe('MenuBar Directive', function () {
     sinon.spy(this.userService, 'logIn');
     sinon.spy(this.userService, 'save');
     sinon.spy(this.localStorageService, 'remove');
+    sinon.spy(this.rootScope, '$broadcast');
 
     this.localStorageSet = sinon.spy(this.localStorageService, 'set');
   }));
@@ -33,6 +35,7 @@ describe('MenuBar Directive', function () {
     it('should have all its variables configured with their default values if user is not logged in', function () {
       this.controller.isLoggedIn.should.be.false;
       this.controller.userName.should.be.empty;
+      should.exist(this.controller.documentElement);
     });
 
     it('should set the local varialbes if the user is logged in', function () {
@@ -48,7 +51,15 @@ describe('MenuBar Directive', function () {
 
       this.controller.isLoggedIn.should.be.true;
       this.controller.userName.should.not.be.empty;
-    })
+    });
+
+    it('should broadcast the event \'loggedIn\'', function () {
+      this.controller.isLoggedIn = true;
+      this.controller.handleDocumentReady();
+
+      this.rootScope.$broadcast.should.have.been.calledOnce;
+      this.rootScope.$broadcast.should.have.been.calledWith('loggedIn');
+    });
 
     it('should open the login modal', function () {
       this.controller.openLoginModal();
@@ -114,6 +125,54 @@ describe('MenuBar Directive', function () {
 
       this.localStorageService.remove.should.have.been.calledOnce;
       this.localStorageService.remove.should.have.been.calledWith('localUser');
+    });
+
+    it('should broadcast the event \'newMeal\' and toast a message after creating a new meal', function () {
+      this.controller.createMealResponse({meal: {}});
+
+      this.mdToast.show.should.have.been.calledOnce;
+      this.mdToast.simple.should.have.been.calledOnce;
+      this.rootScope.$broadcast.should.have.been.calledOnce
+      this.rootScope.$broadcast.should.have.been.calledWith('newMeal');
+    });
+
+    it('should toast an error msg', function () {
+      this.controller.errorResponse('error message');
+
+      this.mdToast.show.should.have.been.calledOnce;
+      this.mdToast.simple.should.have.been.calledOnce;
+    });
+
+    it('should open the create meal modal', function () {
+      this.controller.openCreateMealModal();
+
+      this.mdDialog.show.should.have.been.calledOnce;
+    });
+
+    it('should set a user as logged if we still have the cookie', function () {
+      sinon.stub(this.cookies, 'get', function () {
+        var metadata = btoa(JSON.stringify({method: 'b64'}));
+        var payload = btoa(JSON.stringify({name: 'andre'}));
+        var signature = btoa(JSON.stringify({secret: 'anything'}));
+
+        return metadata + '.' + payload + '.' + signature;
+      });
+
+      this.controller.verifyUserLoggedIn();
+
+      this.controller.isLoggedIn.should.be.true;
+      this.controller.userName.should.not.be.empty;
+    });
+
+    it('should keep its state if there is no user cookie', function () {
+      sinon.stub(this.cookies, 'get', function () {
+        return null;
+      });
+
+      this.controller.verifyUserLoggedIn();
+
+      this.controller.isLoggedIn.should.be.false;
+      this.controller.userName.should.be.empty;
     });
   });
 

@@ -22,7 +22,8 @@
     var defautMeal = {
       name: '',
       description: '',
-      calories: 0
+      calories: 0,
+      when: 0
     };
 
     vm.meal = $scope.meal;
