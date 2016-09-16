@@ -4,9 +4,9 @@
   "description": "An easy way to manage your meals and calories",
   "main": "index.js",
   "scripts": {
-    "test": "gulp test:backend && karma start",
-    "test:back": "gulp test:backend",
-    "test:front": "gulp build:clientJS && karma start",
+    "test": "ENV='test' gulp test:backend && karma start",
+    "test:back": "ENV='test' gulp test:backend",
+    "test:front": "ENV='test' gulp build:clientJS && karma start",
     "start": "gulp nodemon:start",
     "deploy:client": "gulp deploy:dev"
   },
