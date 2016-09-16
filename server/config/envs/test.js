@@ -7,6 +7,6 @@ module.exports = {
   COOKIE_NAME: 'fittoday',
   SALT_WORK_FACTOR: 10,
   DB: {
-    URL: process.env.MONGO_URI || 'mongodb://localhost/fittoday'
+    URL: process.env.MONGO_URI || 'mongodb://localhost/fittodaytest'
   }
 };
