@@ -3,25 +3,29 @@
 
   angular.module('fitToday').controller('homeController', HomeController);
 
-  function HomeController ($scope, MealService, UserService, $mdToast) {
+  function HomeController ($scope, MealService, $mdToast) {
     var vm = this;
     vm.dateMeals = {};
 
-    $scope.$on('loggedIn', function (evt) {
+    $scope.$on('loggedIn', vm.handleLoggedIn);
+
+    $scope.$on('newMeal', vm.handleAddMeal);
+
+    $scope.$on('removeMeal', vm.removeMeal);
+
+    vm.handleLoggedIn = function (evt) {
       MealService.listMyMeals(vm.listMealsSuccess, vm.listMealsError);
-    });
+    };
 
-    $scope.$on('newMeal', function (evt, newMeal) {
+    vm.handleAddMeal = function (evt, newMeal) {
       vm.addMeal(newMeal);
-    });
+    };
 
-    $scope.$on('removeMeal', function (evt, meal) {
-      console.log('asasd', meal);
-
+    vm.removeMeal = function (evt, meal) {
       let meals = vm.dateMeals[meal.when].meals;
 
       meals.splice(meals.indexOf(meal), 1);
-    });
+    };
 
     vm.addMeal = function (meal) {
       if (vm.dateMeals[meal.when]) {
