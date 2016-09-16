@@ -63,7 +63,7 @@ class DataAccessObject {
    */
   update(id, payload) {
     return new Promise((resolve, reject) => {
-      this.model.findByIdAndUpdate(id, payload).then((updatedModel) => {
+      this.model.findByIdAndUpdate(id, payload, {new: true}).then((updatedModel) => {
         Logger.info(`${this.logPrefix}: Model #${updatedModel._id} was updated correctly.`);
 
         resolve(updatedModel);
@@ -170,17 +170,9 @@ class DataAccessObject {
    * @param documentId {Object} document's ID
    * @returns a promise to be comsumed
    */
-  deleteDocument(documentId, userId, role) {
+  deleteDocument(documentId) {
     return new Promise((resolve, reject) => {
-      let query = {
-        _id: documentId
-      };
-
-      if (role !== 'admin') {
-        query.user = userId;
-      }
-
-      this.model.findOneAndRemove(query).then((deleted) => {
+      this.model.findOneAndRemove(documentId).then((deleted) => {
         if (deleted) {
           Logger.info(`${this.logPrefix}: Document #${deleted._id} was deleted`);
 

@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose');
 const should = require('chai').should();
-const MealDAO = require('../../../server/persistence/MealDAO');
+const MealDAO = require('../../../server/persistence/mealDAO');
 const Meal = require('../../../server/models/meal');
 const User = require('../../../server/models/user');
 const config = require('../../../server/config');
@@ -196,11 +196,11 @@ describe('MealDAO', function () {
     }).catch(done);
   });
 
-  it('should delete a meal', function (done) {
+  it('should delete a meal if I\'m the owner of this meal', function (done) {
     let newMeal = new Meal(this.mealPayload);
 
     newMeal.save().then((savedMeal) => {
-      return MealDAO.deleteDocument(savedMeal._id);
+      return MealDAO.deleteDocument(savedMeal._id, this.user._id, 'user');
     }).then((deletedMeal) => {
       should.exist(deletedMeal);
 
@@ -208,7 +208,21 @@ describe('MealDAO', function () {
     }).catch(done);
   });
 
-  xit('should update a Meal if I give the right ID', function (done) {
+  it('should not be able to delete a meal if I\'m not the owner of this meal', function (done) {
+    let newMeal = new Meal(this.mealPayload);
+
+    newMeal.save().then((savedMeal) => {
+      return MealDAO.deleteDocument(savedMeal._id, 'asda876&Sd6asd', 'user');
+    }).then((deletedMeal) => {
+      done(new Error('Should not be here'));
+    }).catch((error) => {
+      error.should.be.an('error');
+
+      done();
+    });
+  });
+
+  it('should update a Meal if I give the right ID', function (done) {
     let newMeal = new Meal(this.mealPayload);
 
     newMeal.save().then((meal) => {
@@ -216,7 +230,7 @@ describe('MealDAO', function () {
         name: 'Andre123'
       };
 
-      MealDAO.update(newMeal._id, newAttribute.name).then((updatedMeal) => {
+      MealDAO.update(newMeal._id, newAttribute).then((updatedMeal) => {
         should.exist(updatedMeal);
         updatedMeal.name.should.be.equals(newAttribute.name);
 

@@ -16,7 +16,8 @@ describe('Auth', function () {
     this.next = sinon.spy();
 
     this.response = {
-      sendStatus: sinon.spy()
+      sendStatus: sinon.spy(),
+      clearCookie: sinon.spy()
     };
 
   });
@@ -64,6 +65,8 @@ describe('Auth', function () {
     should.not.exist(this.request.token);
     this.response.sendStatus.calledOnce.should.be.true;
     this.response.sendStatus.calledWith(401).should.be.true;
+    this.response.clearCookie.should.have.been.calledOnce;
+    this.response.clearCookie.calledWith(config.COOKIE_NAME).should.be.true;
   });
 
   it('should verify the token as valid and accepts it as an admin', function () {

@@ -181,7 +181,7 @@ describe('UserDAO', function () {
     }).catch(done);
   });
 
-  xit('should update a user if I give the right ID', function (done) {
+  it('should update a user if I give the right ID', function (done) {
     let newUser = new User(this.payload);
 
     newUser.save().then((user) => {
@@ -189,7 +189,7 @@ describe('UserDAO', function () {
         name: 'Andre123'
       };
 
-      UserDAO.update(user._id, newAttribute.name).then((updatedUser) => {
+      UserDAO.update(user._id, newAttribute).then((updatedUser) => {
         should.exist(updatedUser);
         updatedUser.name.should.be.equals(newAttribute.name);
 
