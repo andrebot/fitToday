@@ -13,6 +13,6 @@ gulp.task('build:clientJS', function (cb) {
   return gulp.src([config.clientInits, config.clientJS])
     .pipe(concat('app.js'))
     .pipe(ngAnnotate())
-    //.pipe(gulpIf(isProduction, uglify()))
+    .pipe(gulpIf(isProduction, uglify()))
     .pipe(gulp.dest(config.distFolder));
 });

@@ -48,3 +48,4 @@ This will run all front and back end tests. If you want to run any of those sepe
  * It could have ngMessages to handle input error on the frontend;
  * What took me the most time was to set up all the backend to support the frontend. That was not a smart decision since I could have done all the backend mock with [Firebase](https://firebase.google.com/) or such;
  * I decided to not use [Babel](https://babeljs.io/) to leave the bulp process more simple.
+ * npm run start:prod is broken because it can't uglify for some reason.
