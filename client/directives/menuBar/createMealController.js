@@ -13,6 +13,10 @@
       when: 0
     };
 
+    vm.hide = function () {
+      $mdDialog.hide();
+    };
+
     vm.createSuccess = function (meal) {
       console.log('this is it', meal);
       $mdDialog.hide({meal: meal, msg: 'Meal created successfully'});

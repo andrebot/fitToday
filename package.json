@@ -7,8 +7,9 @@
     "test": "ENV='test' gulp test:backend && karma start",
     "test:back": "ENV='test' gulp test:backend",
     "test:front": "ENV='test' gulp build:clientJS && karma start",
-    "start": "gulp nodemon:start",
-    "deploy:client": "gulp deploy:dev"
+    "start:prod": "ENV='production' gulp deploy",
+    "start": "ENV='development' gulp deploy:dev",
+    "aha": "ENV='production' gulp build:clientJS"
   },
   "repository": {
     "type": "git",
@@ -52,9 +53,11 @@
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
     "gulp-flatten": "^0.3.1",
+    "gulp-if": "^2.0.1",
     "gulp-mocha": "^3.0.1",
     "gulp-ng-annotate": "^2.0.0",
     "gulp-nodemon": "^2.1.0",
+    "gulp-uglify": "^2.0.0",
     "karma": "^1.2.0",
     "karma-chai": "^0.1.0",
     "karma-chai-sinon": "^0.1.5",
@@ -64,7 +67,6 @@
     "require-dir": "^0.3.0",
     "run-sequence": "^1.2.2",
     "sinon": "^1.17.5",
-    "sinon-chai": "^2.8.0",
-    "uglify": "^0.1.5"
+    "sinon-chai": "^2.8.0"
   }
 }

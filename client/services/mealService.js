@@ -9,6 +9,10 @@
         method: 'GET',
         url: '/api/v1/meal/myList/',
         isArray: true
+      },
+      'update': {
+        method: 'PUT',
+        utl: '/api/v1/meal/:id'
       }
     });
   }

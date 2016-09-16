@@ -15,22 +15,22 @@
         <form name="login">
           <md-input-container class="md-block">
             <label>Name</label>
-            <input ng-model="vm.meal.name" ng-value="vm.oldMeal.name">
+            <input ng-model="vm.newMeal.name">
           </md-input-container>
 
           <md-input-container>
             <label>When</label>
-            <md-datepicker ng-model="vm.meal.when" ng-value="vm.oldMeal.when" md-open-on-focus></md-datepicker>
+            <md-datepicker ng-model="vm.newMeal.when" md-open-on-focus></md-datepicker>
           </md-input-container>
 
           <md-input-container class="md-block">
             <label>Description</label>
-            <input ng-model="vm.meal.description" ng-value="vm.oldMeal.description">
+            <input ng-model="vm.newMeal.description">
           </md-input-container>
 
           <md-input-container class="md-block">
             <label>Calories</label>
-            <input ng-model="vm.meal.calories" type="number" min="0" ng-value="vm.oldMeal.calories">
+            <input ng-model="vm.newMeal.calories" type="number" min="0">
           </md-input-container>
 
           <div layout="column">

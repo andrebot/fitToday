@@ -22,3 +22,7 @@ gulp.task('build:client', function (cb) {
 gulp.task('deploy:dev', function (cb) {
   runSequence('build:client', 'nodemon:start', 'watch', cb);
 });
+
+gulp.task('deploy', function (cb) {
+  runSequence('build:client', 'nodemon:start', cb);
+});

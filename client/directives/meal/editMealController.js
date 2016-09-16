@@ -7,22 +7,19 @@
     var vm = this;
 
     vm.newMeal = {
-      name: '',
-      description: '',
-      calories: 0,
-      when: 0,
+      name: meal.name,
+      description: meal.description,
+      calories: meal.calories,
+      when: new Date(meal.when),
       _id: meal._id
     };
-
-    vm.oldMeal = meal;
 
     vm.hide = function () {
       $mdDialog.hide();
     };
 
-    vm.saveSuccess = function (meal) {
-      vm.newMeal = meal;
-      $mdDialog.hide(vm.newMeal);
+    vm.saveSuccess = function (savedMeal) {
+      $mdDialog.hide(savedMeal);
     };
 
     vm.saveFail = function (error) {
@@ -30,7 +27,7 @@
     };
 
     vm.save = function () {
-      MealService.save(vm.newMeal, vm.saveSuccess, vm.saveFail);
+      MealService.update(vm.newMeal, vm.saveSuccess, vm.saveFail);
     };
   }
 

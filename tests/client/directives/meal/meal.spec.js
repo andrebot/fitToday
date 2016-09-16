@@ -21,7 +21,7 @@ describe('Meal Directive', function () {
 
     sinon.spy(this.mealService, 'get');
     sinon.spy(this.mealService, 'delete');
-    sinon.spy(this.mealService, 'save');
+    sinon.spy(this.mealService, 'update');
     sinon.spy(this.mdToast, 'show');
     sinon.spy(this.mdToast, 'simple');
     sinon.spy(this.mdDialog, 'show');
@@ -125,14 +125,12 @@ describe('Meal Directive', function () {
       this.controller = this.$controller('editMealController', {$scope: this.scope, meal: this.oldMeal});
     });
 
-    it('should initialize its variables as empty', function () {
-      this.controller.newMeal.name.should.be.empty;
-      this.controller.newMeal.description.should.be.empty;
-      this.controller.newMeal.calories.should.be.equal(0);
-      this.controller.newMeal.when.should.be.equal(0);
+    it('should initialize its variables with meal provided', function () {
+      this.controller.newMeal.name.should.not.be.empty;
+      this.controller.newMeal.description.should.not.be.empty;
+      this.controller.newMeal.calories.should.be.above(0);
+      this.controller.newMeal.when.should.be.a('date');
       this.controller.newMeal._id.should.not.be.empty;
-
-      this.controller.oldMeal.name.should.not.be.empty;
     });
 
     it('should close the window', function () {
@@ -162,7 +160,7 @@ describe('Meal Directive', function () {
     it('should call the save meal endpoint', function () {
       this.controller.save();
 
-      this.mealService.save.should.have.been.calledOnce;
+      this.mealService.update.should.have.been.calledOnce;
     });
   });
 });

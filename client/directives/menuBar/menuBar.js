@@ -80,13 +80,15 @@
     };
 
     vm.createMealResponse = function (response) {
-      $rootScope.$broadcast('newMeal', response.meal);
+      if (response) {
+        $rootScope.$broadcast('newMeal', response.meal);
 
-      $mdToast.show(
-        $mdToast.simple()
-          .textContent(response.msg)
-          .hideDelay(3000)
-      );
+        $mdToast.show(
+          $mdToast.simple()
+            .textContent(response.msg)
+            .hideDelay(3000)
+        );
+      }
     };
 
     vm.errorResponse = function (errorMsg) {

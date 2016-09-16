@@ -86,7 +86,7 @@ describe('Home Page Controller', function () {
 
       this.controller.dateMeals[0].meals.length.should.be.equal(2);
 
-      this.controller.removeMeal(null, meal2);
+      this.controller.removeMeal(meal2);
 
       this.controller.dateMeals[0].meals.length.should.be.below(2);
       this.controller.dateMeals[0].meals[0].name.should.be.equal(meal1.name);
@@ -95,7 +95,7 @@ describe('Home Page Controller', function () {
     it('should call addMeal if the \'newMeal\' even triggers', function () {
       sinon.spy(this.controller, 'addMeal');
 
-      this.controller.handleAddMeal(null, {});
+      this.controller.handleAddMeal({});
 
       this.controller.addMeal.should.have.been.calledOnce;
     });

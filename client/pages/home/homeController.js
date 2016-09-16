@@ -7,21 +7,27 @@
     var vm = this;
     vm.dateMeals = {};
 
-    $scope.$on('loggedIn', vm.handleLoggedIn);
+    $scope.$on('loggedIn', function (evt) {
+      vm.handleLoggedIn();
+    });
 
-    $scope.$on('newMeal', vm.handleAddMeal);
+    $scope.$on('newMeal', function (evt, newMeal) {
+      vm.handleAddMeal(newMeal);
+    });
 
-    $scope.$on('removeMeal', vm.removeMeal);
+    $scope.$on('removeMeal', function (evt, meal) {
+      vm.removeMeal(meal);
+    });
 
-    vm.handleLoggedIn = function (evt) {
+    vm.handleLoggedIn = function () {
       MealService.listMyMeals(vm.listMealsSuccess, vm.listMealsError);
     };
 
-    vm.handleAddMeal = function (evt, newMeal) {
+    vm.handleAddMeal = function (newMeal) {
       vm.addMeal(newMeal);
     };
 
-    vm.removeMeal = function (evt, meal) {
+    vm.removeMeal = function (meal) {
       let meals = vm.dateMeals[meal.when].meals;
 
       meals.splice(meals.indexOf(meal), 1);
